@@ -16,7 +16,7 @@ A satirical news website that generates humorous fake news articles with absurd 
 ## Tech Stack
 
 - **Backend**: Python with Flask
-- **Database**: SQLAlchemy
+- **Database**: PostgreSQL
 - **AI Integration**: Grok 3 API for content generation
 - **Image Generation**: Stability AI API
 - **Frontend**: HTML/CSS/JavaScript
