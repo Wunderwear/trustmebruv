@@ -26,8 +26,8 @@ A satirical news website that generates humorous fake news articles with absurd 
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/trust-me-bruvv.git
-   cd trust-me-bruvv
+   git clone https://github.com/Wunderwear/trustmebruv
+   cd trustmebruv
    ```
 
 2. Install dependencies:
