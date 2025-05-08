@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>Edit Article</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" value="{{ article.title }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content</label>
+                    <textarea class="form-control" id="content" name="content" rows="5" required>{{ article.content }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image_url" class="form-label">Image URL</label>
+                    <input type="url" class="form-control" id="image_url" name="image_url" value="{{ article.image_url }}">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="is_live" name="is_live" {% if article.is_live %}checked{% endif %}>
+                    <label class="form-check-label" for="is_live">Live Article</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Article</button>
+                <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,10 @@
+flask
+flask-sqlalchemy
+flask-login
+python-dotenv
+tweepy
+anthropic
+requests
+# Remove stability-sdk dependency temporarily since it requires compilation
+# stability-sdk==0.8.5
+schedule==1.2.0

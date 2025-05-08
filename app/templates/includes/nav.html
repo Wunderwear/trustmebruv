@@ -1,0 +1,55 @@
+<header class="site-header">
+    <!-- Logo Bar -->
+    <div class="logo-bar">
+        <div class="nav-container">
+            <a href="{{ url_for('main.index') }}" class="logo-link">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="TMB News" class="site-logo">
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <div class="main-nav" id="main-navigation">
+        <div class="nav-container">
+            <nav class="primary-nav" aria-label="Primary navigation">
+                <a href="{{ url_for('main.index') }}" class="nav-item">Home</a>
+                <a href="#" class="nav-item active">News</a>
+                <a href="#" class="nav-item">Sport</a>
+                <a href="#" class="nav-item">Business</a>
+                <a href="#" class="nav-item">Innovation</a>
+                <a href="#" class="nav-item">Culture</a>
+                <a href="#" class="nav-item">Arts</a>
+                <a href="#" class="nav-item">Travel</a>
+                <a href="#" class="nav-item">Earth</a>
+                <a href="#" class="nav-item">Video</a>
+                <a href="#" class="nav-item">Live</a>
+            </nav>
+            <nav class="secondary-nav" aria-label="Secondary navigation">
+                <a href="#" class="nav-item">Degen</a>
+                <a href="#" class="nav-item">Crypto</a>
+                <a href="#" class="nav-item">Conspiracy</a>
+                <a href="#" class="nav-item">Alien</a>
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('admin.index') }}" class="nav-item nav-item-special">Dashboard</a>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const mainNav = document.getElementById('main-navigation');
+        
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('nav-open');
+                mobileToggle.classList.toggle('open');
+            });
+        }
+    });
+</script> 

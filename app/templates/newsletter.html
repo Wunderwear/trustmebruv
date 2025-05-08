@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Newsletter - Trust Me Bruv{% endblock %}
+
+{% block content %}
+<div class="newsletter-container">
+    <div class="newsletter-header">
+        <h1 class="newsletter-title">Stay Updated with Trust Me Bruv Newsletter</h1>
+        <p class="newsletter-description">Get the latest news delivered straight to your inbox. Select your interests below to receive personalized updates.</p>
+    </div>
+
+    <form action="{{ url_for('main.newsletter') }}" method="post" class="newsletter-form">
+        <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required placeholder="Your email address">
+        </div>
+        
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your full name">
+        </div>
+        
+        <div class="form-group">
+            <label for="frequency">Email Frequency</label>
+            <select id="frequency" name="frequency">
+                <option value="daily">Daily Digest</option>
+                <option value="weekly" selected>Weekly Roundup</option>
+                <option value="breaking">Breaking News Only</option>
+            </select>
+        </div>
+        
+        <div class="checkbox-group">
+            <h3>Topics of Interest</h3>
+            <div class="checkbox-item">
+                <input type="checkbox" id="technology" name="topics" value="technology" checked>
+                <label for="technology">Technology</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="business" name="topics" value="business" checked>
+                <label for="business">Business</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="world" name="topics" value="world">
+                <label for="world">World News</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="crypto" name="topics" value="crypto">
+                <label for="crypto">Crypto</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="politics" name="topics" value="politics">
+                <label for="politics">Politics</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="science" name="topics" value="science">
+                <label for="science">Science & Health</label>
+            </div>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-full">Subscribe to Newsletter</button>
+        </div>
+        
+        <div class="form-disclaimer">
+            <p>By subscribing, you agree to our <a href="{{ url_for('main.terms') }}">Terms of Service</a> and <a href="{{ url_for('main.privacy') }}">Privacy Policy</a>. You can unsubscribe at any time.</p>
+        </div>
+    </form>
+</div>
+{% endblock %} 

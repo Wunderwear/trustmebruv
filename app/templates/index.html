@@ -1,0 +1,617 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Featured News Section -->
+<section class="featured-news">
+    <!-- Main Featured Article -->
+    <div class="main-article">
+        {% if featured_article %}
+        <div class="main-article-image">
+            <div class="featured-label">Featured</div>
+            {% if featured_article.image_url %}
+            <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}">
+            {% else %}
+            <div class="placeholder-image" style="height: 100%;">
+                <i class="far fa-image"></i>
+            </div>
+            {% endif %}
+        </div>
+        <div class="main-article-content">
+            <h2 class="main-article-title">
+                <a href="{{ url_for('main.article', article_id=featured_article.id) }}">{{ featured_article.title }}</a>
+            </h2>
+            <p class="main-article-excerpt">
+                {{ featured_article.content|striptags|truncate(200) }}
+            </p>
+            <div class="news-meta">
+                <span class="news-date">
+                    <i class="far fa-clock"></i> {{ featured_article.created_at.strftime('%B %d, %Y') }}
+                </span>
+                <span class="news-category">
+                    <i class="fas fa-tag"></i>
+                    {% if 'tech' in featured_article.title.lower() %}
+                        Technology
+                    {% elif 'business' in featured_article.title.lower() %}
+                        Business
+                    {% elif 'world' in featured_article.title.lower() %}
+                        World
+                    {% elif 'market' in featured_article.title.lower() or 'crypto' in featured_article.title.lower() or 'bitcoin' in featured_article.title.lower() %}
+                        Crypto
+                    {% else %}
+                        News
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        {% else %}
+        <div class="main-article-image">
+            <div class="featured-label">Featured</div>
+            <div class="placeholder-image" style="height: 100%;">
+                <i class="far fa-image"></i>
+            </div>
+        </div>
+        <div class="main-article-content">
+            <h2 class="main-article-title">
+                <a href="#">Social Media Platform 'ChatterBox' Launches Desperate "Smell-a-Tweet" Feature to Sniff Out Relevance</a>
+            </h2>
+            <p class="main-article-excerpt">
+                In a last-ditch effort to revive its dwindling user base, ChatterBox has unveiled a groundbreaking feature allowing users to literally smell each other's thoughts.
+            </p>
+            <div class="news-meta">
+                <span class="news-date">
+                    <i class="far fa-clock"></i> May 05, 2025
+                </span>
+                <span class="news-category">
+                    <i class="fas fa-tag"></i> Technology
+                </span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Sidebar Articles -->
+    <div class="sidebar-articles">
+        {% if sidebar_articles %}
+        {% for article in sidebar_articles %}
+        {% if loop.index <= 4 %}
+        <div class="sidebar-article">
+            <div class="sidebar-article-image">
+                {% if article.image_url %}
+                <img src="{{ article.image_url }}" alt="{{ article.title }}">
+                {% else %}
+                <div class="placeholder-image" style="height: 100%; width: 100%;">
+                    <i class="far fa-image"></i>
+                </div>
+                {% endif %}
+            </div>
+            <div class="sidebar-article-content">
+                <h3 class="sidebar-article-title">
+                    <a href="{{ url_for('main.article', article_id=article.id) }}">{{ article.title }}</a>
+                </h3>
+                <div class="news-meta">
+                    <span class="news-date">
+                        <i class="far fa-clock"></i> {{ article.created_at.strftime('%b %d') }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <!-- Default sidebar articles -->
+        <div class="sidebar-article">
+            <div class="sidebar-article-image">
+                <div class="placeholder-image" style="height: 100%; width: 100%;">
+                    <i class="far fa-image"></i>
+                </div>
+            </div>
+            <div class="sidebar-article-content">
+                <h3 class="sidebar-article-title">
+                    <a href="#">Politicians Stumble Upon 'Normal Human Activities,' Declare Them National Security Threats</a>
+                </h3>
+                <div class="news-meta">
+                    <span class="news-date">
+                        <i class="far fa-clock"></i> May 05
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-article">
+            <div class="sidebar-article-image">
+                <div class="placeholder-image" style="height: 100%; width: 100%;">
+                    <i class="far fa-image"></i>
+                </div>
+            </div>
+            <div class="sidebar-article-content">
+                <h3 class="sidebar-article-title">
+                    <a href="#">New Olympic Sport 'Extreme Couch Potatoing' Leaves Athletes Bedridden, Sponsors Delighted</a>
+                </h3>
+                <div class="news-meta">
+                    <span class="news-date">
+                        <i class="far fa-clock"></i> May 05
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-article">
+            <div class="sidebar-article-image">
+                <div class="placeholder-image" style="height: 100%; width: 100%;">
+                    <i class="far fa-image"></i>
+                </div>
+            </div>
+            <div class="sidebar-article-content">
+                <h3 class="sidebar-article-title">
+                    <a href="#">AI Accidentally Becomes Too Human, Starts Catfishing Tech Bros on Tinder</a>
+                </h3>
+                <div class="news-meta">
+                    <span class="news-date">
+                        <i class="far fa-clock"></i> May 05
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-article">
+            <div class="sidebar-article-image">
+                <div class="placeholder-image" style="height: 100%; width: 100%;">
+                    <i class="far fa-image"></i>
+                </div>
+            </div>
+            <div class="sidebar-article-content">
+                <h3 class="sidebar-article-title">
+                    <a href="#">Metaverse Real Estate Agent Struggling to Explain Why Virtual Yard Needs Virtual Mowing</a>
+                </h3>
+                <div class="news-meta">
+                    <span class="news-date">
+                        <i class="far fa-clock"></i> May 04
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Latest News Section -->
+<section class="news-section">
+    <h2 class="section-title">Latest News</h2>
+    <div class="news-pages">
+        <!-- Page 1 -->
+        <div class="news-page active" id="news-page-1">
+            <div class="news-grid">
+                {% if news_grid_articles %}
+                {% for article in news_grid_articles %}
+                {% if loop.index > 0 and loop.index <= 5 %}
+                <div class="news-card">
+                    <div class="news-card-image">
+                        {% if article.image_url %}
+                        <img src="{{ article.image_url }}" alt="{{ article.title }}">
+                        {% else %}
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="{{ url_for('main.article', article_id=article.id) }}">{{ article.title }}</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            {{ article.content|striptags|truncate(120) }}
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> {{ article.created_at.strftime('%b %d, %Y') }}
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i>
+                                {% if 'tech' in article.title.lower() %}
+                                    Technology
+                                {% elif 'business' in article.title.lower() %}
+                                    Business
+                                {% elif 'world' in article.title.lower() %}
+                                    World
+                                {% elif 'market' in article.title.lower() or 'crypto' in article.title.lower() or 'bitcoin' in article.title.lower() %}
+                                    Crypto
+                                {% else %}
+                                    News
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <!-- Default news cards when no articles are available - First 5 cards -->
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">Startup Founder Reality Check: Tech Bro Discovers 'Hustle' Means Actually Working, Files for Emotional Bankruptcy</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            A Silicon Valley entrepreneur was shocked to discover that running a company requires actual effort and not just inspirational Instagram posts.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 05, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> Business
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat news cards 2-5 here with existing samples -->
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">Teens Launch Insane 'Toilet Bowl Challenge,' Flush Selves Down Literal Drains for TikTok Clout</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            Plumbers nationwide report surge in emergency calls as teenagers attempt to go viral by becoming one with their bathroom plumbing.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 05, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> World
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">International Data Centers Now Burning Old Harry Potter Books for More Sustainable AI Training</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            Tech giants claim the controversial method is carbon-neutral and "puts problematic content to good use."
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 04, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> Technology
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">Economists Puzzled as Global Currency Based on Compliments Outperforms Both Dollar and Bitcoin</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            "Nice haircut" now worth approximately 3.7 Dogecoin as new "kind words" economy takes off.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 04, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> Crypto
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">Apple Unveils $999 Empty Box That 'Encourages Minimalism and Digital Detox'</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            Tech enthusiasts already forming lines outside stores for the new "Apple Nothing" product described as "our most courageous innovation yet."
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 03, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> Technology
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Page 2 -->
+        <div class="news-page" id="news-page-2">
+            <div class="news-grid">
+                {% if news_grid_articles %}
+                {% for article in news_grid_articles %}
+                {% if loop.index > 5 and loop.index <= 10 %}
+                <div class="news-card">
+                    <div class="news-card-image">
+                        {% if article.image_url %}
+                        <img src="{{ article.image_url }}" alt="{{ article.title }}">
+                        {% else %}
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="{{ url_for('main.article', article_id=article.id) }}">{{ article.title }}</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            {{ article.content|striptags|truncate(120) }}
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> {{ article.created_at.strftime('%b %d, %Y') }}
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i>
+                                {% if 'tech' in article.title.lower() %}
+                                    Technology
+                                {% elif 'business' in article.title.lower() %}
+                                    Business
+                                {% elif 'world' in article.title.lower() %}
+                                    World
+                                {% elif 'market' in article.title.lower() or 'crypto' in article.title.lower() or 'bitcoin' in article.title.lower() %}
+                                    Crypto
+                                {% else %}
+                                    News
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <!-- Default news cards for page 2 (should include 5 items per page) -->
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">Startup Founder Reality Check: Tech Bro Discovers 'Hustle' Means Actually Working, Files for Emotional Bankruptcy</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            A Silicon Valley entrepreneur was shocked to discover that running a company requires actual effort and not just inspirational Instagram posts.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 05, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> Business
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">Startup Founder Reality Check: Tech Bro Discovers 'Hustle' Doesn't Pay Rent, Now Sells Feet Pics for Seed Funding</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            Former LinkedIn influencer pivots to OnlyFans after realizing inspirational posts don't cover San Francisco rent.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 04, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> Business
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">Global Supply Chain Finally Fixed After 8-Year-Old Suggests 'Just Make More Stuff'</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            World leaders and logistics experts embarrassed they didn't think of the solution sooner.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 03, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> Business
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">Man Who Read One Wikipedia Article Now Leading Expert On Complex Geopolitical Issue</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            Local man confidently explains intricate international relations to bored friends after skimming online summary.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 03, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> World
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-card-image">
+                        <div class="placeholder-image" style="height: 100%;">
+                            <i class="far fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a href="#">Corporate Office Plants Unionize, Demand Better Lighting and Premium Water</a>
+                        </h3>
+                        <p class="news-excerpt">
+                            Potted ferns and succulents across the country halt photosynthesis until conditions improve.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="far fa-clock"></i> May 02, 2025
+                            </span>
+                            <span class="news-category">
+                                <i class="fas fa-tag"></i> Business
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation Controls -->
+    <div class="news-navigation">
+        <button class="news-nav-button prev-button" aria-label="Previous page" title="Previous page">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="news-nav-dots">
+            <div class="news-nav-dot active" data-page="1" title="Page 1"></div>
+            <div class="news-nav-dot" data-page="2" title="Page 2"></div>
+        </div>
+        <button class="news-nav-button next-button" aria-label="Next page" title="Next page">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+
+<!-- Add JavaScript for pagination -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const pages = document.querySelectorAll('.news-page');
+        const dots = document.querySelectorAll('.news-nav-dot');
+        const prevButton = document.querySelector('.prev-button');
+        const nextButton = document.querySelector('.next-button');
+        let currentPage = 1;
+        const totalPages = pages.length;
+
+        console.log('Pagination initialized', {
+            pages: pages.length,
+            dots: dots.length,
+            prevButton, 
+            nextButton
+        });
+
+        // Make sure all pages are properly set up initially
+        pages.forEach(page => {
+            page.style.display = 'none';
+        });
+        
+        // Always show first page on initial load
+        if (pages.length > 0) {
+            pages[0].style.display = 'grid';
+        }
+
+        // Function to show a specific page
+        function showPage(pageNum) {
+            console.log('Showing page', pageNum);
+            
+            // Hide all pages first using direct style manipulation
+            pages.forEach(page => {
+                page.style.display = 'none';
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page with direct style
+            const targetPage = document.getElementById(`news-page-${pageNum}`);
+            if (targetPage) {
+                targetPage.style.display = 'grid';
+                targetPage.classList.add('active');
+                console.log('Displayed page', targetPage.id);
+            } else {
+                console.error('Could not find page', pageNum);
+            }
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === pageNum - 1) {
+                    dot.classList.add('active');
+                }
+            });
+            
+            // Update current page
+            currentPage = pageNum;
+            console.log('Current page updated to', currentPage);
+        }
+
+        // Event listeners for dots
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const pageNum = parseInt(this.getAttribute('data-page'));
+                console.log('Dot clicked for page', pageNum);
+                showPage(pageNum);
+            });
+        });
+
+        // Event listeners for next/prev buttons
+        prevButton.addEventListener('click', function() {
+            console.log('Prev button clicked, current page:', currentPage);
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        });
+
+        nextButton.addEventListener('click', function() {
+            console.log('Next button clicked, current page:', currentPage, 'total pages:', totalPages);
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        });
+        
+        // Ensure first page is showing
+        showPage(1);
+    });
+</script>
+{% endblock %} 

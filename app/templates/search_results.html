@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results for "{{ query }}" - Trust Me Bruv{% endblock %}
+
+{% block content %}
+<div class="search-results-container">
+    <div class="search-header">
+        <h1 class="section-title">Search Results for "{{ query }}"</h1>
+        <div class="search-meta">
+            {% if articles|length > 0 %}
+            <p>Found {{ articles|length }} result{% if articles|length != 1 %}s{% endif %}</p>
+            {% else %}
+            <p>No results found</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if articles|length > 0 %}
+    <div class="news-grid">
+        {% for article in articles %}
+        <div class="news-card">
+            <div class="news-card-image">
+                {% if article.image_url %}
+                <img src="{{ article.image_url }}" alt="{{ article.title }}">
+                {% else %}
+                <div class="placeholder-image" style="height: 100%;">
+                    <i class="far fa-image"></i>
+                </div>
+                {% endif %}
+            </div>
+            <div class="news-card-content">
+                <h3 class="news-card-title">
+                    <a href="{{ url_for('main.article', article_id=article.id) }}">{{ article.title }}</a>
+                </h3>
+                <p class="news-excerpt">
+                    {{ article.content|striptags|truncate(120) }}
+                </p>
+                <div class="news-meta">
+                    <span class="news-date">
+                        <i class="far fa-clock"></i> {{ article.created_at.strftime('%B %d, %Y') }}
+                    </span>
+                    <span class="news-category">
+                        <i class="fas fa-tag"></i>
+                        {% if 'tech' in article.title.lower() %}
+                            Technology
+                        {% elif 'business' in article.title.lower() %}
+                            Business
+                        {% elif 'world' in article.title.lower() %}
+                            World
+                        {% elif 'market' in article.title.lower() or 'crypto' in article.title.lower() or 'bitcoin' in article.title.lower() %}
+                            Crypto
+                        {% else %}
+                            News
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-results">
+        <div class="no-results-icon">
+            <i class="fas fa-search"></i>
+        </div>
+        <h2>No articles found</h2>
+        <p>We couldn't find any articles matching your search term "{{ query }}".</p>
+        <p>Try a different search term or browse our categories.</p>
+        <div class="search-actions">
+            <a href="{{ url_for('main.index') }}" class="btn">Return to Homepage</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

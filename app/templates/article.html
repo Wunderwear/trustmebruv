@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - Trust Me Bruv{% endblock %}
+
+{% block content %}
+<div class="article-container">
+    <!-- Main Article -->
+    <article class="article-main">
+        <header class="article-header">
+            <h1 class="article-title">{{ article.title }}</h1>
+            <div class="article-meta">
+                <span class="article-author">
+                    <i class="fas fa-user"></i> Grok
+                </span>
+                <span class="article-date">
+                    <i class="far fa-clock"></i> {{ article.created_at.strftime('%B %d, %Y') }}
+                </span>
+                <span class="article-category">
+                    <i class="fas fa-tag"></i>
+                    {% if 'tech' in article.title.lower() %}
+                        Technology
+                    {% elif 'business' in article.title.lower() %}
+                        Business
+                    {% elif 'world' in article.title.lower() %}
+                        World
+                    {% elif 'market' in article.title.lower() or 'crypto' in article.title.lower() or 'bitcoin' in article.title.lower() %}
+                        Crypto
+                    {% else %}
+                        News
+                    {% endif %}
+                </span>
+            </div>
+        </header>
+
+        <!-- Article Featured Image -->
+        {% if article.image_url %}
+        <div class="article-image">
+            <img src="{{ article.image_url }}" alt="{{ article.title }}">
+        </div>
+        {% endif %}
+
+        <!-- Article Content -->
+        <div class="article-content">
+            {{ content|safe }}
+        </div>
+
+        <!-- Article Tags -->
+        <div class="article-tags">
+            <span>Related Tags:</span>
+            <ul class="tags-list">
+                {% if 'tech' in article.title.lower() or 'technology' in article.title.lower() %}
+                <li><a href="{{ url_for('main.search', q='Technology') }}">Technology</a></li>
+                <li><a href="{{ url_for('main.search', q='Innovation') }}">Innovation</a></li>
+                {% elif 'business' in article.title.lower() or 'company' in article.title.lower() %}
+                <li><a href="{{ url_for('main.search', q='Business') }}">Business</a></li>
+                <li><a href="{{ url_for('main.search', q='Economy') }}">Economy</a></li>
+                {% elif 'world' in article.title.lower() or 'global' in article.title.lower() %}
+                <li><a href="{{ url_for('main.search', q='World') }}">World</a></li>
+                <li><a href="{{ url_for('main.search', q='Global') }}">Global</a></li>
+                {% elif 'market' in article.title.lower() or 'stock' in article.title.lower() %}
+                <li><a href="{{ url_for('main.search', q='Crypto') }}">Crypto</a></li>
+                <li><a href="{{ url_for('main.search', q='Blockchain') }}">Blockchain</a></li>
+                {% else %}
+                <li><a href="{{ url_for('main.search', q='News') }}">News</a></li>
+                <li><a href="{{ url_for('main.search', q='Current Events') }}">Current Events</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <!-- Social Sharing -->
+        <div class="social-share">
+            <span>Share this article:</span>
+            <div class="share-buttons">
+                <a href="#" class="btn-share facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="btn-share twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="btn-share linkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="btn-share email"><i class="far fa-envelope"></i></a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Related Articles -->
+    <section class="related-articles">
+        <h2 class="section-title">Related Articles</h2>
+        <div class="news-pages">
+            <div class="news-page active" id="related-page-1">
+                <div class="news-grid">
+                    {% for other_article in other_articles %}
+                        {% if other_article.id != article.id and loop.index <= 5 %}
+                        <div class="news-card">
+                            <div class="news-card-image">
+                                {% if other_article.image_url %}
+                                <img src="{{ other_article.image_url }}" alt="{{ other_article.title }}">
+                                {% else %}
+                                <div class="placeholder-image" style="height: 100%;">
+                                    <i class="far fa-image"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="news-card-content">
+                                <h3 class="news-card-title">
+                                    <a href="{{ url_for('main.article', article_id=other_article.id) }}">{{ other_article.title }}</a>
+                                </h3>
+                                <div class="news-meta">
+                                    <span class="news-date">
+                                        <i class="far fa-clock"></i> {{ other_article.created_at.strftime('%B %d, %Y') }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="news-page" id="related-page-2">
+                <div class="news-grid">
+                    {% for other_article in other_articles %}
+                        {% if other_article.id != article.id and loop.index > 5 and loop.index <= 10 %}
+                        <div class="news-card">
+                            <div class="news-card-image">
+                                {% if other_article.image_url %}
+                                <img src="{{ other_article.image_url }}" alt="{{ other_article.title }}">
+                                {% else %}
+                                <div class="placeholder-image" style="height: 100%;">
+                                    <i class="far fa-image"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="news-card-content">
+                                <h3 class="news-card-title">
+                                    <a href="{{ url_for('main.article', article_id=other_article.id) }}">{{ other_article.title }}</a>
+                                </h3>
+                                <div class="news-meta">
+                                    <span class="news-date">
+                                        <i class="far fa-clock"></i> {{ other_article.created_at.strftime('%B %d, %Y') }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Controls -->
+        <div class="news-navigation">
+            <button class="news-nav-button prev-related-button" aria-label="Previous page" title="Previous page">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="news-nav-dots">
+                <div class="news-nav-dot active" data-page="1" title="Page 1"></div>
+                <div class="news-nav-dot" data-page="2" title="Page 2"></div>
+            </div>
+            <button class="news-nav-button next-related-button" aria-label="Next page" title="Next page">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+</div>
+
+<!-- Add JavaScript for related articles pagination -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const relatedPages = document.querySelectorAll('#related-page-1, #related-page-2');
+        const relatedDots = document.querySelectorAll('.related-articles .news-nav-dot');
+        const prevRelatedButton = document.querySelector('.prev-related-button');
+        const nextRelatedButton = document.querySelector('.next-related-button');
+        let currentRelatedPage = 1;
+        const totalRelatedPages = relatedPages.length;
+
+        console.log('Related articles pagination initialized', {
+            pages: relatedPages.length,
+            dots: relatedDots.length,
+            prevButton: prevRelatedButton, 
+            nextButton: nextRelatedButton
+        });
+
+        // Make sure all pages are properly set up initially
+        relatedPages.forEach(page => {
+            page.style.display = 'none';
+        });
+        
+        // Always show first page on initial load
+        if (relatedPages.length > 0) {
+            relatedPages[0].style.display = 'grid';
+        }
+
+        // Function to show a specific page
+        function showRelatedPage(pageNum) {
+            console.log('Showing related page', pageNum);
+            
+            // Hide all pages first using direct style manipulation
+            relatedPages.forEach(page => {
+                page.style.display = 'none';
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page with direct style
+            const targetPage = document.getElementById(`related-page-${pageNum}`);
+            if (targetPage) {
+                targetPage.style.display = 'grid';
+                targetPage.classList.add('active');
+                console.log('Displayed related page', targetPage.id);
+            } else {
+                console.error('Could not find related page', pageNum);
+            }
+            
+            // Update dots
+            relatedDots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === pageNum - 1) {
+                    dot.classList.add('active');
+                }
+            });
+            
+            // Update current page
+            currentRelatedPage = pageNum;
+            console.log('Current related page updated to', currentRelatedPage);
+        }
+
+        // Event listeners for dots
+        relatedDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const pageNum = parseInt(this.getAttribute('data-page'));
+                console.log('Related dot clicked for page', pageNum);
+                showRelatedPage(pageNum);
+            });
+        });
+
+        // Event listeners for next/prev buttons
+        prevRelatedButton.addEventListener('click', function() {
+            console.log('Prev related button clicked, current page:', currentRelatedPage);
+            if (currentRelatedPage > 1) {
+                showRelatedPage(currentRelatedPage - 1);
+            }
+        });
+
+        nextRelatedButton.addEventListener('click', function() {
+            console.log('Next related button clicked, current page:', currentRelatedPage, 'total pages:', totalRelatedPages);
+            if (currentRelatedPage < totalRelatedPages) {
+                showRelatedPage(currentRelatedPage + 1);
+            }
+        });
+        
+        // Ensure first page is showing
+        showRelatedPage(1);
+    });
+</script>
+{% endblock %} 

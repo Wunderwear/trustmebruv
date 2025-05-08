@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trust Me Bruv - Breaking news and latest stories">
+    <title>{% block title %}Trust Me Bruv - Breaking News and Latest Updates{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="container">
+                <div class="header-container">
+                    <div class="logo">
+                        <a href="{{ url_for('main.index') }}">
+                            <h1>Trust Me Bruv</h1>
+                        </a>
+                    </div>
+                    <div class="main-navigation">
+                        <nav>
+                            <ul class="nav-menu">
+                                <li><a href="{{ url_for('main.index') }}" class="{% if request.endpoint == 'main.index' %}active{% endif %}"><i class="fas fa-home"></i> HOME</a></li>
+                                <li><a href="#" id="search-toggle"><i class="fas fa-search"></i> SEARCH</a></li>
+                                <li><a href="{{ url_for('main.newsletter') }}" class="{% if request.endpoint == 'main.newsletter' %}active{% endif %}"><i class="far fa-envelope"></i> NEWSLETTER</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Categories Navigation -->
+        <div class="categories-nav">
+            <div class="container">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('main.search', q='Technology') }}"><i class="fas fa-microchip"></i> TECHNOLOGY</a></li>
+                        <li><a href="{{ url_for('main.search', q='Business') }}"><i class="fas fa-briefcase"></i> BUSINESS</a></li>
+                        <li><a href="{{ url_for('main.search', q='World') }}"><i class="fas fa-globe-americas"></i> WORLD</a></li>
+                        <li><a href="{{ url_for('main.search', q='Crypto') }}"><i class="fas fa-coins"></i> CRYPTO</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div class="container">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <h2>Trust Me Bruv</h2>
+                        <p>Your source for the latest news</p>
+                    </div>
+                    <div class="footer-links">
+                        <div class="link-column">
+                            <h3>About</h3>
+                            <ul>
+                                <li><a href="{{ url_for('main.terms') }}">Terms of Service</a></li>
+                                <li><a href="{{ url_for('main.privacy') }}">Privacy Policy</a></li>
+                                <li><a href="{{ url_for('main.cookies') }}">Cookie Policy</a></li>
+                                <li><a href="{{ url_for('main.accessibility') }}">Accessibility</a></li>
+                            </ul>
+                        </div>
+                        <div class="link-column">
+                            <h3>Categories</h3>
+                            <ul>
+                                <li><a href="{{ url_for('main.search', q='Technology') }}">Technology</a></li>
+                                <li><a href="{{ url_for('main.search', q='Business') }}">Business</a></li>
+                                <li><a href="{{ url_for('main.search', q='World') }}">World</a></li>
+                                <li><a href="{{ url_for('main.search', q='Crypto') }}">Crypto</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>© 2025 Trust Me Bruv News. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <form action="{{ url_for('main.search') }}" method="get">
+                <input type="search" name="q" placeholder="Search for news..." required>
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <button type="button" class="close-search" id="closeSearch">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search toggle functionality
+            const searchToggle = document.getElementById('search-toggle');
+            const searchOverlay = document.getElementById('searchOverlay');
+            const closeSearch = document.getElementById('closeSearch');
+
+            if (searchToggle && searchOverlay && closeSearch) {
+                searchToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    searchOverlay.classList.add('active');
+                    searchOverlay.querySelector('input').focus();
+                });
+
+                closeSearch.addEventListener('click', function() {
+                    searchOverlay.classList.remove('active');
+                });
+            }
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

@@ -17,6 +17,7 @@ A satirical news website that generates humorous fake news articles with absurd 
 
 - **Backend**: Python with Flask
 - **Database**: PostgreSQL
+- **ORM**: SQLAlchemy
 - **AI Integration**: Grok 3 API for content generation
 - **Image Generation**: Stability AI API
 - **Frontend**: HTML/CSS/JavaScript
@@ -25,8 +26,8 @@ A satirical news website that generates humorous fake news articles with absurd 
 
 1. Clone the repository:
    ```
-   git clone https://github.com/Wunderwear/trustmebruv
-   cd trustmebruv
+   git clone https://github.com/yourusername/trust-me-bruvv.git
+   cd trust-me-bruvv
    ```
 
 2. Install dependencies:
@@ -59,6 +60,10 @@ The site generates satirical news articles with:
 - Quotes from fictional experts with silly names
 - Relatable references to everyday life
 - Simple, focused, and humorous content
+
+## License
+
+[MIT License](LICENSE)
 
 ## Disclaimer
 
