@@ -13,7 +13,7 @@ A satirical news website that generates humorous fake news articles with absurd 
 - **Category Navigation**: Browse articles by categories like Crypto, Health, Tech, and more
 - **Social Media Integration**: Automatic posting to Twitter when new articles are generated
 
-## Tech Stack
+## Stack
 
 - **Backend**: Python with Flask
 - **Database**: PostgreSQL
@@ -61,9 +61,6 @@ The site generates satirical news articles with:
 - Relatable references to everyday life
 - Simple, focused, and humorous content
 
-## License
-
-[MIT License](LICENSE)
 
 ## Disclaimer
 
